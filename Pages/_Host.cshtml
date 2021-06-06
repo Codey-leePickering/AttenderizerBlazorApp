@@ -14,20 +14,10 @@
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
-    <script type="text/javascript">
 
-        var qrdata = document.getElementById('qr-data');
-        var qrcode = new QRCode(document.getElementById('qrcode'));
-
-        function generateQR() {
-            var data = qrdata.value;
-
-            qrcode.makeCode(data);
-        }
-
-    </script>
 </head>
 <body>
+
     <app>
         <component type="typeof(App)" render-mode="ServerPrerendered" />
     </app>
@@ -44,25 +34,5 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
-
-    <div class="col text-center">
-        <input class="m-4" type="text" id="qr-data" onchange="generateQR()" />
-        <button type="button" class="btn align-middle btn-success" action="generateQR()">Generate QR</button>
-
-        <div class="m-4 align-content-center text-center align-items-center" id="qrcode"></div>
-
-        <script type="text/javascript">
-
-            var qrdata = document.getElementById('qr-data');
-            var qrcode = new QRCode(document.getElementById('qrcode'));
-
-            function generateQR() {
-                var data = qrdata.value;
-
-                qrcode.makeCode(data);
-            }
-
-        </script>
-    </div>
 </body>
 </html>

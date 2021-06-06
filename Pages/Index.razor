@@ -1,9 +1,39 @@
 ﻿@page "/"
 
-<div class="container">
-        <input class="m-4" type="text" id="qr-data" onchange="generateQR()" />
-        <button type="button" class="btn align-middle btn-success" action="generateQR()">Generate QR</button>
+@using Syncfusion.Blazor
 
-        <div class="m-4 align-content-center text-center align-items-center" id="qrcode"></div>
-</div>
+<EditForm Model="@DataModel">
+    <div class="container">
+        <input class="m-4" type="text" @bind-value="DataModel.QRInputValue" />
+        
+        <button type="button" class="btn align-middle btn-success" @onclick="GenerateClick">Generate QRCode</button>
+   
+        <hr />
+        <div class="col-10">
 
+        </div>
+    </div>
+</EditForm>
+
+<hr />
+
+@if (DataModel.QRInputValue != null && DataModel.QRInputValue.Trim() != "")
+   {
+<Syncfusion.Blazor.BarcodeGenerator.SfQRCodeGenerator Width="200px" Height="150px" Value="@DataModel.QRInputValue"></Syncfusion.Blazor.BarcodeGenerator.SfQRCodeGenerator>
+   }
+
+
+@code
+{
+    public QRCodeDataModel DataModel = new QRCodeDataModel();
+
+    public class QRCodeDataModel
+    {
+        public string QRInputValue { get; set; }
+    }
+
+    protected void GenerateClick()
+    {
+
+    }
+}
