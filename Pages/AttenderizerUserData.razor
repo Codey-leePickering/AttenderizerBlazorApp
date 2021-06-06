@@ -3,7 +3,25 @@
 @inject IHttpClientFactory _ClientFactory;
 @using Newtonsoft.Json;
 
-<h3>AttenderizerUserData</h3>
+<div class="container">
+    <h3>Attenderizer Student Role</h3>
+</div>
+
+
+
+
+<div class="container">
+    <button type="button" class="btn align-middle btn-success" @onclick="ResetAttendance">Reset Attendance</button>
+    <button type="button" class="btn align-middle btn-success" @onclick="GetList">Reset List</button>
+
+    <hr />
+    <div class="col-10">
+
+    </div>
+</div>
+
+
+
 
 @if (string.IsNullOrWhiteSpace(errorString) == false)
 {
@@ -15,42 +33,47 @@ else if (userModel is null)
 }
 else
 {
-    <ul class="list-group">
-        @foreach (var item in userModel)
-        {
-        <li class="list-group-item">
+    <div class="container">
+        <ul class="list-group">
+            @foreach (var item in userModel)
+            {
+                <li class="list-group-item">
 
-            <div class="row align-items-start">
-                <div class="col">
-                    <img src="/images/usericon.png" height="30" />
-                </div>
-                <div class="col">
-                    @item.FirstName
-                </div>
+                    <div class="row align-items-start">
+                        <div class="col">
+                            <img src="/images/usericon.png" height="30" />
+                        </div>
+                        <div class="col">
+                            @item.FirstName
+                        </div>
 
-                <div class="col">
-                    @item.Username
-                </div>
-                <div class="col">
-                    @if (item.IsAbsent == false)
-                    {
-                        <img src="/images/presenticon.png" height="30" />
-                    }
-                    else
-                    {
-                        <img src="/images/absenticon.png" height="30" />
-                    }
-                </div>
-            </div>
-        </li>
-        }
-    </ul>
+                        <div class="col">
+                            @item.Username
+                        </div>
+                        <div class="col">
+                            @if (item.IsAbsent == false)
+                            {
+                                <img src="/images/presenticon.png" height="30" />
+                            }
+                            else
+                            {
+                                <img src="/images/absenticon.png" height="30" />
+                            }
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
 }
 
 @code {
 
     List<AttenderizerUserModel> userModel = new List<AttenderizerUserModel>();
+    //HttpResponseMessage response;
     string errorString;
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -59,11 +82,11 @@ else
 
     private async Task GetList()
     {
-        
+
         userModel = null;
         var client = _ClientFactory.CreateClient();
 
-        HttpResponseMessage response = await client.GetAsync("https://attenderizerapi.azurewebsites.net/api/login");
+        HttpResponseMessage response = await client.GetAsync("https://attenderizerapi.azurewebsites.net/api/login/");
 
         if (response.IsSuccessStatusCode)
         {
@@ -75,5 +98,11 @@ else
         {
             errorString = $"There was an error getting data: {response.ReasonPhrase}";
         }
+    }
+
+    public async Task ResetAttendance()
+    {
+        var client = _ClientFactory.CreateClient();
+        HttpResponseMessage response = await client.PutAsync("https://attenderizerapi.azurewebsites.net/api/login/updatemany", null);
     }
 }
