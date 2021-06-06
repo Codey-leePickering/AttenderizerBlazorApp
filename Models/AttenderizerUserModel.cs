@@ -1,23 +1,30 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AttenderizerBlazorApp.Models
 {
-    public class Rootobject
-    {
-        public AttenderizerUserModel[] Property1 { get; set; }
-    }
-
     public class AttenderizerUserModel
     {
-        public string id { get; set; }
-        public int username { get; set; }
-        public string password { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public bool isAbsent { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("username")]
+        public int Username { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
+
+        [JsonProperty("firstName")]
+        public string FirstName { get; set; }
+
+        [JsonProperty("lastName")]
+        public string LastName { get; set; }
+
+        [JsonProperty("isAbsent")]
+        public bool IsAbsent { get; set; }
     }
 
 }
