@@ -1,0 +1,58 @@
+﻿@page "/user" 
+
+@inject IHttpClientFactory _ClientFactory
+
+<h3>AttenderizerUserData</h3>
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (userModel is null)
+{
+    <div class="h4">Loading...</div>
+}
+else    
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td>@userModel.firstName</td>
+                    <td>@userModel.lastName</td>
+                </tr>
+            
+        </tbody>
+    </table>
+}
+
+@code {     
+
+    AttenderizerUserModel userModel;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://attenderizerapi.azurewebsites.net/api/login");
+
+        var client = _ClientFactory.CreateClient();
+
+        HttpResponseMessage response = await client.SendAsync(request);
+
+        if(response.IsSuccessStatusCode)
+        {
+            userModel = await response.Content.ReadFromJsonAsync<AttenderizerUserModel>();
+            errorString = null;
+        }
+        else
+        {
+            errorString = $"There was an error getting data: {response.ReasonPhrase}";
+        }
+    }
+}
