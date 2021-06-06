@@ -30,13 +30,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //var request = new HttpRequestMessage(HttpMethod.Get, "https://attenderizerapi.azurewebsites.net/api/login");
+        await GetList();
+    }
 
+    private async Task GetList()
+    {
+        userModel = null;
         var client = _ClientFactory.CreateClient();
 
         HttpResponseMessage response = await client.GetAsync("https://attenderizerapi.azurewebsites.net/api/login");
 
-        if(response.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
         {
             var content = response.Content.ReadAsStringAsync().Result;
             userModel = JsonConvert.DeserializeObject<List<AttenderizerUserModel>>(content);
