@@ -14,6 +14,18 @@
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        var qrdata = document.getElementById('qr-data');
+        var qrcode = new QRCode(document.getElementById('qrcode'));
+
+        function generateQR() {
+            var data = qrdata.value;
+
+            qrcode.makeCode(data);
+        }
+
+    </script>
 </head>
 <body>
     <app>

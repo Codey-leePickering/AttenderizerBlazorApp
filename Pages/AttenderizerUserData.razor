@@ -22,13 +22,24 @@ else
 
             <div class="row align-items-start">
                 <div class="col">
-                    <img src="/images/iconfinder_user_1608727.png" height="30"/>
+                    <img src="/images/iconfinder_user_1608727.png" height="30" />
                 </div>
                 <div class="col">
                     @item.FirstName
                 </div>
+
                 <div class="col">
-                    <img src="/images/iconfinder_Tick_Mark_Dark_1398912(1).png" height="30"/>
+                    @item.Username
+                </div>
+                <div class="col">
+                    @if (item.IsAbsent == false)
+                    {
+                        <img src="/images/iconfinder_Close_Icon_Dark_1398917(1).png" height="30" />
+                    }
+                    else
+                    {
+                        <img src="/images/iconfinder_Tick_Mark_Dark_1398912(1).png" height="30" />
+                    }
                 </div>
             </div>
         </li>
