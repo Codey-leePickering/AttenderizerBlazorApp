@@ -1,7 +1,9 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<div class="container">
+        <input class="m-4" type="text" id="qr-data" onchange="generateQR()" />
+        <button type="button" class="btn align-middle btn-success" action="generateQR()">Generate QR</button>
 
-Welcome to your new app.
+        <div class="m-4 align-content-center text-center align-items-center" id="qrcode"></div>
+</div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
