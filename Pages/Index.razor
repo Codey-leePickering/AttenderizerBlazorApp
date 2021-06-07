@@ -12,21 +12,20 @@
 
         <button type="button" class="btn align-middle btn-success" @onclick="GenerateClick">Generate QRCode</button>
 
-        <hr />
-        <div class="col-10">
+        <div class="container">
+            <div class="display-2 text-center">@DataModel.QRInputValue</div>
 
         </div>
     </div>
 </EditForm>
 
-<hr />
 
 @if (DataModel.QRInputValue != null && DataModel.QRInputValue.Trim() != "")
 {
-    <div class="container">
+    <div class="container ">
         <Syncfusion.Blazor.BarcodeGenerator.SfQRCodeGenerator Width="500px"
                                                               Height="500px"
-                                                              Value="@DataModel.QRInputValue"></Syncfusion.Blazor.BarcodeGenerator.SfQRCodeGenerator>
+                                                              Value=""></Syncfusion.Blazor.BarcodeGenerator.SfQRCodeGenerator>
 
     </div>
 }
@@ -57,11 +56,16 @@
     protected async void GenerateClick()//binded to button
     {
         errorString = null;
-        if (string.IsNullOrEmpty(DataModel.QRInputValue))
+        string number = DataModel.QRInputValue;
+
+        if (string.IsNullOrEmpty(number))
         {
             errorString = "Hey! You need to enter a code!";
+            return;
         }
-        await InsertQRCode(DataModel.QRInputValue);
+
+        await InsertQRCode(number);
+
     }
 
     private async Task InsertQRCode(string qrcode)
@@ -74,14 +78,5 @@
 
         HttpResponseMessage response = await client.PostAsync("https://attenderizerapi.azurewebsites.net/api/qrcode/insert", content);
 
-        //if (response.IsSuccessStatusCode)
-        //{
-
-        //    errorString = "it's working";
-        //}
-        //else
-        //{
-        //    errorString = $"There was an error getting data: {response.ReasonPhrase}";
-        //}
     }
 }

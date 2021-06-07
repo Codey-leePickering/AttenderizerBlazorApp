@@ -12,12 +12,10 @@
 
 <div class="container">
     <button type="button" class="btn align-middle btn-success" @onclick="ResetAttendance">Reset Attendance</button>
-    <button type="button" class="btn align-middle btn-success" @onclick="GetList">Reset List</button>
+    <button type="button" class="btn align-middle btn-success" @onclick="GetList">Refresh List</button>
 
     <hr />
-    <div class="col-10">
 
-    </div>
 </div>
 
 
@@ -25,11 +23,17 @@
 
 @if (string.IsNullOrWhiteSpace(errorString) == false)
 {
+<div class="container">
     <div class="h2">@errorString</div>
+</div>
+    
 }
 else if (userModel is null)
 {
+<div class="container">
     <div class="h4">Loading...</div>
+</div>
+
 }
 else
 {
@@ -37,7 +41,7 @@ else
         <ul class="list-group">
             @foreach (var item in userModel)
             {
-                <li class="list-group-item">
+                <li class="list-group-item text-center">
 
                     <div class="row align-items-start">
                         <div class="col">
