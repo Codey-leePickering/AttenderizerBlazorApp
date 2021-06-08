@@ -8,7 +8,7 @@
 
 <EditForm Model="@DataModel">
     <div class="container">
-        <input class="m-4" type="text" @bind-value="DataModel.QRInputValue" />
+        <input class="m-4" type="text" @bind-value="@DataModel.QRInputValue" />
 
         <button type="button" class="btn align-middle btn-success" @onclick="GenerateClick">Generate QRCode</button>
 
@@ -25,7 +25,7 @@
     <div class="container ">
         <Syncfusion.Blazor.BarcodeGenerator.SfQRCodeGenerator Width="500px"
                                                               Height="500px"
-                                                              Value=""></Syncfusion.Blazor.BarcodeGenerator.SfQRCodeGenerator>
+                                                              Value="@DataModel.QRInputValue"></Syncfusion.Blazor.BarcodeGenerator.SfQRCodeGenerator>
 
     </div>
 }
